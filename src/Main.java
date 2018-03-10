@@ -13,9 +13,9 @@ public class Main {
         String baseURL = "http://orteil.dashnet.org/cookieclicker/";
         String cookie = "bigCookie";
         String productClass = "product unlocked enabled";
-        String cookiesOwned = "owned: 20";
-        String product = "product0";
-
+        String cookiesOwned = "owned: 5";
+        String cursor = "product0";
+        String grandma = "product1";
 
         driver.get(baseURL);
         WebDriverWait wait = new WebDriverWait(driver, 20);
@@ -23,11 +23,21 @@ public class Main {
 
         while (x < 999999999) {
             driver.findElement(By.id(cookie)).click();
-            //TODO: If less than 5 cursors, click cursor
-            //TODO: Else, click grandma
+
+
             if (driver.getPageSource().contains(cookiesOwned)) {
-                driver.findElement(By.id(product)).click();
+
+                driver.findElement(By.id(grandma) && By.className(productClass)).click();
+
+            } else {
+
+                driver.findElement(By.id(cursor)).click();
+
             }
+
+
+
+
             x++;
         }
 

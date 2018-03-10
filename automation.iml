@@ -7,7 +7,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="selenium-java-3.10" level="project" />
-    <orderEntry type="library" name="selenium-server-standalone-3.10.0" level="project" />
+    <orderEntry type="library" name="Java automation" level="project" />
   </component>
 </module>
