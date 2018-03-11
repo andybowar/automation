@@ -27,9 +27,9 @@ public class Main {
 
             if (driver.getPageSource().contains(cookiesOwned)) {
 
-                driver.findElement(By.id(grandma) && By.className(productClass)).click();
+                driver.findElement(By.id(grandma)).click();
 
-            } else {
+            } else if(driver.getPageSource().contains(productClass)) {
 
                 driver.findElement(By.id(cursor)).click();
 
