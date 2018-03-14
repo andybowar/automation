@@ -13,7 +13,7 @@ public class Main {
         String baseURL = "http://orteil.dashnet.org/cookieclicker/";
         String cookie = "bigCookie";
         String productClass = "product unlocked enabled";
-        String cookiesOwned = "owned: 5";
+        String numCookies = "100 cookies";
         String cursor = "product0";
         String grandma = "product1";
 
@@ -25,7 +25,7 @@ public class Main {
             driver.findElement(By.id(cookie)).click();
 
 
-            if (driver.getPageSource().contains(cookiesOwned)) {
+            if (driver.getPageSource().contains(numCookies)) {
 
                 driver.findElement(By.id(grandma)).click();
 
