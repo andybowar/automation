@@ -30,7 +30,7 @@ public class Actions implements ClipboardOwner {
         String load = "load";
         String cancelLoad = "Nevermind";
         String codeText = "textareaPrompt";
-        String result = "";
+        //String result = "";
 
         driver.get(baseURL);
         WebDriverWait wait = new WebDriverWait(driver, 20);
@@ -40,12 +40,22 @@ public class Actions implements ClipboardOwner {
         driver.findElement(By.id(options)).click();
         driver.findElement(By.linkText(importSave)).click();
 
-        Transferable t = clipboard.getContents(this);
-        if (t == null) {
-            driver.findElement(By.linkText(cancelLoad));
-        } else {
-            driver.findElement(By.linkText(load)).click();
+        String saveCode = null;
+        try {
+            saveCode = (String) clipboard.getContents(null).getTransferData(DataFlavor.stringFlavor);
+        } catch (UnsupportedFlavorException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        System.out.println(saveCode);
+
+        //Transferable t = clipboard.getContents(this);
+        //if (t == null) {
+        //    driver.findElement(By.linkText(cancelLoad));
+        //} else {
+        //    driver.findElement(By.linkText(load)).click();
+        //}
 
 
         while (x < 500) {
@@ -70,8 +80,8 @@ public class Actions implements ClipboardOwner {
 
         driver.findElement(By.id(options)).click();
         driver.findElement(By.linkText(export)).click();
-        String saveCode = driver.findElement(By.id(codeText)).getText();
-        StringSelection stringSelection = new StringSelection(saveCode);
+        String saveCodeOnExit = driver.findElement(By.id(codeText)).getText();
+        StringSelection stringSelection = new StringSelection(saveCodeOnExit);
         System.out.println(saveCode);
 
 
