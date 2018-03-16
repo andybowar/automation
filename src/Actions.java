@@ -1,5 +1,5 @@
-import com.sun.javafx.iio.ios.IosDescriptor;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,6 +13,7 @@ public class Actions implements ClipboardOwner {
     public void playGame() {
         WebDriver driver = new FirefoxDriver();
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        org.openqa.selenium.interactions.Actions paste = new org.openqa.selenium.interactions.Actions(driver);
 
         int x = 0;
         String baseURL = "http://orteil.dashnet.org/cookieclicker/";
@@ -27,10 +28,11 @@ public class Actions implements ClipboardOwner {
         String options = "prefsButton";
         String importSave = "Import save";
         String export = "Export save";
-        String load = "load";
-        String cancelLoad = "Nevermind";
+        String load = "promptOption0";
+        String cancelLoad = "promptOption1";
         String codeText = "textareaPrompt";
-        //String result = "";
+        String closeMenu = "close menuClose";
+
 
         driver.get(baseURL);
         WebDriverWait wait = new WebDriverWait(driver, 20);
@@ -39,6 +41,7 @@ public class Actions implements ClipboardOwner {
 
         driver.findElement(By.id(options)).click();
         driver.findElement(By.linkText(importSave)).click();
+
 
         String saveCode = null;
         try {
@@ -50,12 +53,14 @@ public class Actions implements ClipboardOwner {
         }
         System.out.println(saveCode);
 
-        //Transferable t = clipboard.getContents(this);
-        //if (t == null) {
-        //    driver.findElement(By.linkText(cancelLoad));
-        //} else {
-        //    driver.findElement(By.linkText(load)).click();
-        //}
+        if (saveCode == null) {
+            driver.findElement(By.id(cancelLoad));
+        } else {
+            paste.sendKeys(Keys.chord(Keys.COMMAND, "v")).build().perform();
+            driver.findElement(By.id(load)).click();
+            driver.findElement(By.className(closeMenu)).click();
+        }
+
 
 
         while (x < 500) {
