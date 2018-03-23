@@ -38,7 +38,8 @@ public class Actions implements ClipboardOwner {
         String numCookies3 = "133 cookies";
         String numCookies4 = "153 cookies";
         String clearAllcheevos = "sidenote";
-        
+        String saveCodeOnExit = null;
+
         driver.get(baseURL);
         WebDriverWait wait = new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.elementToBeClickable(cookie));
@@ -46,9 +47,6 @@ public class Actions implements ClipboardOwner {
 
         driver.findElement(options).click();
         driver.findElement(importSave).click();
-
-        // Check to see if save code exists
-        String saveCodeOnExit = null;
 
         // Currently, there's nothing implemented to fetch the save code from anywhere, so this is always null.
         if (saveCodeOnExit == null) {
@@ -67,10 +65,11 @@ public class Actions implements ClipboardOwner {
         while (x < 1) {
             driver.findElement(cookie).click();
 
-            if ((driver.getPageSource().contains(numCookies1) ||
-                    driver.getPageSource().contains(numCookies2) ||
-                    driver.getPageSource().contains(numCookies3) ||
-                    driver.getPageSource().contains(numCookies4)) && driver.getPageSource().contains(productClass)) {
+            if ((driver.getPageSource().contains(numCookies1)
+                    || driver.getPageSource().contains(numCookies2)
+                    || driver.getPageSource().contains(numCookies3)
+                    || driver.getPageSource().contains(numCookies4))
+                    && driver.getPageSource().contains(productClass)) {
 
                 // If there are exactly the right number of cookies available and the product class exists, click grandma
                 driver.findElement(grandma).click();
@@ -82,11 +81,10 @@ public class Actions implements ClipboardOwner {
             }
 
             // For achievement IDs from 0-2, click to close them.
-            if (driver.getPageSource().contains(cheevo0) ||
-                    driver.getPageSource().contains(cheevo1) ||
-                    driver.getPageSource().contains(cheevo2)) {
+            if (driver.getPageSource().contains(cheevo0)
+                    || driver.getPageSource().contains(cheevo1)
+                    || driver.getPageSource().contains(cheevo2)) {
                 driver.findElement(closecheevo).click();
-
             // If they somehow start stacking up, look for the big X and clear them all
             } else if (driver.getPageSource().contains(clearAllcheevos)) {
                 driver.findElement(By.className(clearAllcheevos)).click();
