@@ -1,13 +1,13 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.awt.datatransfer.*;
 import java.awt.Toolkit;
-import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
 
 public class Actions implements ClipboardOwner {
     public void playGame() {
@@ -31,7 +31,13 @@ public class Actions implements ClipboardOwner {
         String load = "promptOption0";
         String cancelLoad = "promptOption1";
         String codeText = "textareaPrompt";
-        String closeMenu = "close menuClose";
+        String closeMenu = "menuClose";
+        String cheevie0 = "note-0";
+        String cheevie1 = "note-1";
+        String cheevie2 = "note-2";
+        String closeCheevie = "close";
+        String cookieWarning = "Got it!";
+        String clearAllCheevies = "sidenote";
 
 
         driver.get(baseURL);
@@ -43,27 +49,21 @@ public class Actions implements ClipboardOwner {
         driver.findElement(By.linkText(importSave)).click();
 
 
-        String saveCode = null;
-        try {
-            saveCode = (String) clipboard.getContents(null).getTransferData(DataFlavor.stringFlavor);
-        } catch (UnsupportedFlavorException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println(saveCode);
+        String saveCodeOnExit = null;
 
-        if (saveCode == null) {
-            driver.findElement(By.id(cancelLoad));
+        if (saveCodeOnExit == null) {
+            driver.findElement(By.id(cancelLoad)).click();
+            driver.findElement(By.className(closeMenu)).click();
         } else {
-            paste.sendKeys(Keys.chord(Keys.COMMAND, "v")).build().perform();
+            paste.sendKeys(saveCodeOnExit).build().perform();
             driver.findElement(By.id(load)).click();
             driver.findElement(By.className(closeMenu)).click();
         }
 
 
+        driver.findElement(By.linkText(cookieWarning)).click();
 
-        while (x < 500) {
+        while (x < 1) {
             driver.findElement(By.id(cookie)).click();
 
             if ((driver.getPageSource().contains(numCookies1) ||
@@ -73,10 +73,17 @@ public class Actions implements ClipboardOwner {
 
                 driver.findElement(By.id(grandma)).click();
 
-            } else if(driver.getPageSource().contains(productClass)) {
+            } else if (driver.getPageSource().contains(productClass)) {
 
                 driver.findElement(By.id(cursor)).click();
 
+            }
+            if (driver.getPageSource().contains(cheevie0) ||
+                    driver.getPageSource().contains(cheevie1) ||
+                    driver.getPageSource().contains(cheevie2)) {
+                driver.findElement(By.className(closeCheevie)).click();
+            } else if (driver.getPageSource().contains(clearAllCheevies)) {
+                driver.findElement(By.className(clearAllCheevies)).click();
             }
 
 
@@ -85,14 +92,38 @@ public class Actions implements ClipboardOwner {
 
         driver.findElement(By.id(options)).click();
         driver.findElement(By.linkText(export)).click();
-        String saveCodeOnExit = driver.findElement(By.id(codeText)).getText();
+        saveCodeOnExit = driver.findElement(By.id(codeText)).getText();
         StringSelection stringSelection = new StringSelection(saveCodeOnExit);
-        System.out.println(saveCode);
-
+        System.out.println(saveCodeOnExit);
+        driver.findElement(By.id(load)).click();
+        driver.findElement(By.className(closeMenu)).click();
 
         clipboard.setContents(stringSelection, this);
 
-        driver.close();
+        PrintWriter out = null;
+        try {
+            out = new PrintWriter("saveCode.txt");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        out.println(saveCodeOnExit);
+
+        //driver.close();
+
+        /*
+        driver.get(baseURL);
+        wait.until(ExpectedConditions.elementToBeClickable(By.id(cookie)));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id(options)));
+*/
+        driver.findElement(By.id(options)).click();
+        driver.findElement(By.linkText(importSave)).click();
+
+
+        paste.sendKeys(saveCodeOnExit);
+        //driver.findElement(By.id(load)).click();
+        //driver.findElement(By.className(closeMenu)).click();
+
 
     }
 
