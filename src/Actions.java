@@ -21,14 +21,14 @@ public class Actions implements ClipboardOwner {
         By cursor = By.id("product0");
         By grandma = By.id("product1");
         By options = By.id("prefsButton");
-        By importSave = By.linkText("Import save");
-        By export = By.linkText("Export save");
         By load = By.id("promptOption0");
         By cancelLoad = By.id("promptOption1");
         By codeText = By.id("textareaPrompt");
         By closeMenu = By.className("menuClose");
         By closecheevo = By.className("close");
         By cookieWarning = By.linkText("Got it!");
+        By export = By.linkText("Export save");
+        By importSave = By.linkText("Import save");
         String productClass = "product unlocked enabled";
         String cheevo0 = "note-0";
         String cheevo1 = "note-1";
