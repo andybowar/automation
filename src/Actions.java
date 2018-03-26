@@ -17,54 +17,54 @@ public class Actions implements ClipboardOwner {
         // Strings are used where getPageSource().contains() or get() must be used. In any other case, strings have been changed to By variables
         int x = 0;
         final String BASE_URL = "http://orteil.dashnet.org/cookieclicker/";
-        By cookie = By.id("bigCookie");
-        By options = By.id("prefsButton");
-        By load = By.id("promptOption0");
-        By cancelLoad = By.id("promptOption1");
-        By codeText = By.id("textareaPrompt");
-        By closeMenu = By.className("menuClose");
-        By cookieWarning = By.linkText("Got it!");
-        By export = By.linkText("Export save");
-        By importSave = By.linkText("Import save");
-        By enabled = By.cssSelector("div.product.unlocked.enabled");
-        By closeCheevo = By.cssSelector("div.close");
+        final By COOKIE = By.id("bigCookie");
+        final By OPTIONS = By.id("prefsButton");
+        final By LOAD = By.id("promptOption0");
+        final By CANCEL_LOAD = By.id("promptOption1");
+        final By CODE_TEXT = By.id("textareaPrompt");
+        final By CLOSE_MENU = By.className("menuClose");
+        final By COOKIE_WARNING = By.linkText("Got it!");
+        final By EXPORT = By.linkText("Export save");
+        final By IMPORT_SAVE = By.linkText("Import save");
+        final By ENABLED = By.cssSelector("div.product.unlocked.enabled");
+        final By CLOSE_CHEEVO = By.cssSelector("div.close");
         String saveCodeOnExit = null;
 
         driver.get(BASE_URL);
         WebDriverWait wait = new WebDriverWait(driver, 20);
-        wait.until(ExpectedConditions.elementToBeClickable(cookie));
-        wait.until(ExpectedConditions.elementToBeClickable(options));
+        wait.until(ExpectedConditions.elementToBeClickable(COOKIE));
+        wait.until(ExpectedConditions.elementToBeClickable(OPTIONS));
 
-        driver.findElement(options).click();
-        driver.findElement(importSave).click();
+        driver.findElement(OPTIONS).click();
+        driver.findElement(IMPORT_SAVE).click();
 
         // Currently, there's nothing implemented to fetch the save code from anywhere, so this is always null.
         if (saveCodeOnExit == null) {
-            driver.findElement(cancelLoad).click();
-            driver.findElement(closeMenu).click();
+            driver.findElement(CANCEL_LOAD).click();
+            driver.findElement(CLOSE_MENU).click();
         } else {
             paste.sendKeys(saveCodeOnExit).build().perform();
-            driver.findElement(load).click();
-            driver.findElement(closeMenu).click();
+            driver.findElement(LOAD).click();
+            driver.findElement(CLOSE_MENU).click();
         }
 
         // Get rid of cookie warning
-        driver.findElement(cookieWarning).click();
+        driver.findElement(COOKIE_WARNING).click();
 
 
         while (x < 999999999) {
-            driver.findElement(cookie).click();
+            driver.findElement(COOKIE).click();
 
             // Try clicking any available product, don't worry about exceptions
             try {
-                driver.findElement(enabled).click();
+                driver.findElement(ENABLED).click();
             } catch(Exception e) {
 
             }
 
             // Try clicking the 'x' on any displayed achievement, don't worry about exceptions
             try {
-                driver.findElement(closeCheevo).click();
+                driver.findElement(CLOSE_CHEEVO).click();
             } catch (Exception e) {
 
             }
@@ -73,16 +73,16 @@ public class Actions implements ClipboardOwner {
         }
 
         // Open options menu
-        driver.findElement(options).click();
-        driver.findElement(export).click();
+        driver.findElement(OPTIONS).click();
+        driver.findElement(EXPORT).click();
 
         // Store save code in variable
-        saveCodeOnExit = driver.findElement(codeText).getText();
+        saveCodeOnExit = driver.findElement(CODE_TEXT).getText();
         System.out.println(saveCodeOnExit);
 
         // Close save code dialog and menu
-        driver.findElement(load).click();
-        driver.findElement(closeMenu).click();
+        driver.findElement(LOAD).click();
+        driver.findElement(CLOSE_MENU).click();
 
         // Copy save code to clipboard
         StringSelection stringSelection = new StringSelection(saveCodeOnExit);
@@ -100,12 +100,12 @@ public class Actions implements ClipboardOwner {
         //driver.close();
 
         // Reload using save code
-        driver.findElement(options).click();
-        driver.findElement(importSave).click();
+        driver.findElement(OPTIONS).click();
+        driver.findElement(IMPORT_SAVE).click();
 
         paste.sendKeys(saveCodeOnExit).build().perform();
-        driver.findElement(load).click();
-        driver.findElement(closeMenu).click();
+        driver.findElement(LOAD).click();
+        driver.findElement(CLOSE_MENU).click();
     }
 
     public void lostOwnership(Clipboard clipboard, Transferable contents) {
