@@ -16,31 +16,25 @@ public class Actions implements ClipboardOwner {
 
         // Strings are used where getPageSource().contains() or get() must be used. In any other case, strings have been changed to By variables
         int x = 0;
-        String baseURL = "http://orteil.dashnet.org/cookieclicker/";
+        final String BASE_URL = "http://orteil.dashnet.org/cookieclicker/";
         By cookie = By.id("bigCookie");
-        By cursor = By.id("product0");
-        By grandma = By.id("product1");
         By options = By.id("prefsButton");
         By load = By.id("promptOption0");
         By cancelLoad = By.id("promptOption1");
         By codeText = By.id("textareaPrompt");
+        By enabled = By.cssSelector("div.product.unlocked.enabled");
         By closeMenu = By.className("menuClose");
         By closecheevo = By.className("close");
         By cookieWarning = By.linkText("Got it!");
         By export = By.linkText("Export save");
         By importSave = By.linkText("Import save");
-        String productClass = "product unlocked enabled";
         String cheevo0 = "note-0";
         String cheevo1 = "note-1";
         String cheevo2 = "note-2";
-        String numCookies1 = "100 cookies";
-        String numCookies2 = "115 cookies";
-        String numCookies3 = "133 cookies";
-        String numCookies4 = "153 cookies";
         String clearAllcheevos = "sidenote";
         String saveCodeOnExit = null;
 
-        driver.get(baseURL);
+        driver.get(BASE_URL);
         WebDriverWait wait = new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.elementToBeClickable(cookie));
         wait.until(ExpectedConditions.elementToBeClickable(options));
@@ -62,22 +56,13 @@ public class Actions implements ClipboardOwner {
         driver.findElement(cookieWarning).click();
 
 
-        while (x < 1) {
+        while (x < 999) {
             driver.findElement(cookie).click();
 
-            if ((driver.getPageSource().contains(numCookies1)
-                    || driver.getPageSource().contains(numCookies2)
-                    || driver.getPageSource().contains(numCookies3)
-                    || driver.getPageSource().contains(numCookies4))
-                    && driver.getPageSource().contains(productClass)) {
+            try {
+                driver.findElement(enabled).click();
+            } catch(Exception e) {
 
-                // If there are exactly the right number of cookies available and the product class exists, click grandma
-                driver.findElement(grandma).click();
-
-            } else if (driver.getPageSource().contains(productClass)) {
-
-                // Otherwise, if the product class exists, just buy more cookies
-                driver.findElement(cursor).click();
             }
 
             // For achievement IDs from 0-2, click to close them.
