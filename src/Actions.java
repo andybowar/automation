@@ -22,16 +22,12 @@ public class Actions implements ClipboardOwner {
         By load = By.id("promptOption0");
         By cancelLoad = By.id("promptOption1");
         By codeText = By.id("textareaPrompt");
-        By enabled = By.cssSelector("div.product.unlocked.enabled");
         By closeMenu = By.className("menuClose");
-        By closecheevo = By.className("close");
         By cookieWarning = By.linkText("Got it!");
         By export = By.linkText("Export save");
         By importSave = By.linkText("Import save");
-        String cheevo0 = "note-0";
-        String cheevo1 = "note-1";
-        String cheevo2 = "note-2";
-        String clearAllcheevos = "sidenote";
+        By enabled = By.cssSelector("div.product.unlocked.enabled");
+        By closeCheevo = By.cssSelector("div.close");
         String saveCodeOnExit = null;
 
         driver.get(BASE_URL);
@@ -56,25 +52,22 @@ public class Actions implements ClipboardOwner {
         driver.findElement(cookieWarning).click();
 
 
-        while (x < 999) {
+        while (x < 999999999) {
             driver.findElement(cookie).click();
 
+            // Try clicking any available product, don't worry about exceptions
             try {
                 driver.findElement(enabled).click();
             } catch(Exception e) {
 
             }
 
-            // For achievement IDs from 0-2, click to close them.
-            if (driver.getPageSource().contains(cheevo0)
-                    || driver.getPageSource().contains(cheevo1)
-                    || driver.getPageSource().contains(cheevo2)) {
-                driver.findElement(closecheevo).click();
-            // If they somehow start stacking up, look for the big X and clear them all
-            } else if (driver.getPageSource().contains(clearAllcheevos)) {
-                driver.findElement(By.className(clearAllcheevos)).click();
-            }
+            // Try clicking the 'x' on any displayed achievement, don't worry about exceptions
+            try {
+                driver.findElement(closeCheevo).click();
+            } catch (Exception e) {
 
+            }
 
             x++;
         }
