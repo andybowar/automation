@@ -28,7 +28,7 @@ public class Actions implements ClipboardOwner {
         final By IMPORT_SAVE = By.linkText("Import save");
         final By ENABLED = By.cssSelector("div.product.unlocked.enabled");
         final By CLOSE_CHEEVO = By.cssSelector("div.close");
-        String saveCodeOnExit = null;
+        String saveCodeOnExit = "Mi4wMDQ1fHwxNTIxMDU4MDg5MzUxOzE1MjEwNTgwODkzNTE7MTUyMjA5NjE5MDIxMDtNY1NhdXNhZ2U7dWltY2J8w6fCvcKkDHw2NTE3NS43NjMzMzMwMzE0MzsyMzg1NTIxLjc2MzMzMzM1NTs0MDg4OzA7NDA4ODsyNDc7MDswOzA7MDswOzA7MDswOzA7MDswOzA7MDswOzA7MDtlYXN0ZXI7MDswOzA7MDswOzA7MDstMTstMTstMTstMTstMTswOzA7MDswOzUwOzA7MDswOzA7MTUyMTA1ODA4OTM1MTt8NjEsNjEsMTQxNDMsMDs0Nyw0Nyw5NzgxMSwwOzMwLDMwLDQyNDE0NywwOzEzLDEzLDk1MTA1OCwwOzMsMyw4OTQyNzAsMDswLDAsMCwwOzAsMCwwLDA7MCwwLDAsMDswLDAsMCwwOzAsMCwwLDA7MCwwLDAsMDswLDAsMCwwOzAsMCwwLDA7MCwwLDAsMDswLDAsMCwwO3zDpsKqwqDDpsKqwqrDpMKKwoDDpMKAwoDDpMKCworDpsKAwoDDpMKAwoDDpMKAwoDDpMKgwoDDpMKAwoDDpMKAwojDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDpMKAwoDDhMKAfMOnwrDCgMOkwrzCgMOkwqPCosOlwonCgMOkwoDCgMOkwqDCgMOkwoDCgMOkwoDCgMOkwoDCgMOkwoDCgMOkwoDCgMOkwoDCgMOkwoDCgMOkwoDCgMOkwoDCgMOkwoDCgMOkwoDCgMOkwoDCgMOkwoDCgMOkwoDCgMOkwoDCgMOkwoDCgMOkwoDCgMOkwoDCgAR8%21END%21";
 
         driver.get(BASE_URL);
         WebDriverWait wait = new WebDriverWait(driver, 20);
@@ -51,21 +51,20 @@ public class Actions implements ClipboardOwner {
         // Get rid of cookie warning
         driver.findElement(COOKIE_WARNING).click();
 
-
         while (x < 999999999) {
             driver.findElement(COOKIE).click();
 
             // Try clicking any available product, don't worry about exceptions
             try {
                 driver.findElement(ENABLED).click();
-            } catch(Exception e) {
+            } catch(Exception expected) {
 
             }
 
             // Try clicking the 'x' on any displayed achievement, don't worry about exceptions
             try {
                 driver.findElement(CLOSE_CHEEVO).click();
-            } catch (Exception e) {
+            } catch (Exception expected) {
 
             }
 
