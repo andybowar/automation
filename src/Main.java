@@ -5,22 +5,20 @@ public class Main extends BasePageObject {
         AchievementPage cheevos = new AchievementPage();
         ProductsPage product = new ProductsPage();
 
-        int x = 0;
-
         cookieSection.goToUrl();
 
         cheevos.removeWarning();
 
-        while (x < 999999999){
+        cookieSection.getCookies();
+
+        while (cookieSection.numCookies < 1000000000){
 
             cookieSection.clickCookie();
-
+            cookieSection.getCookies();
             cheevos.closeCheevos();
 
             product.buyProduct();
             product.buyFromStore();
-
-            x++;
         }
     }
 }
