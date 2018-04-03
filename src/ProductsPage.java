@@ -1,3 +1,4 @@
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import org.openqa.selenium.By;
 
 public class ProductsPage extends BasePageObject {
@@ -5,10 +6,18 @@ public class ProductsPage extends BasePageObject {
     private static final By STORE_PRODUCT = By.cssSelector("div.crate.upgrade.enabled");
 
     public void buyProduct() {
-        this.elementFinder(AVAILABLE_PRODUCT).click();
+        try {
+            this.elementFinder(AVAILABLE_PRODUCT).click();
+        } catch (ElementNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void buyFromStore() {
-        this.elementFinder(STORE_PRODUCT).click();
+        try {
+            this.elementFinder(STORE_PRODUCT).click();
+        } catch (ElementNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

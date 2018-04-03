@@ -1,5 +1,3 @@
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
-import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.NoSuchElementException;
 
 public class Main extends BasePageObject {
@@ -19,23 +17,10 @@ public class Main extends BasePageObject {
 
             cookieSection.clickCookie();
 
-            try {
-                cheevos.closeCheevos();
-            } catch (NoSuchElementException expected) {
+            cheevos.closeCheevos();
 
-            }
-
-            try {
-                product.buyProduct();
-            } catch (NoSuchElementException expected) {
-
-            }
-
-            try {
-                product.buyFromStore();
-            } catch (NoSuchElementException expected) {
-
-            }
+            product.buyProduct();
+            product.buyFromStore();
 
             x++;
         }
