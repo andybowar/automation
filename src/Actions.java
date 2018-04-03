@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Actions implements ClipboardOwner {
+
     public void playGame() {
         WebDriver driver = new FirefoxDriver();
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
