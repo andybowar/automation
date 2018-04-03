@@ -51,21 +51,20 @@ public class Actions implements ClipboardOwner {
         // Get rid of cookie warning
         driver.findElement(COOKIE_WARNING).click();
 
-
         while (x < 999999999) {
             driver.findElement(COOKIE).click();
 
             // Try clicking any available product, don't worry about exceptions
             try {
                 driver.findElement(ENABLED).click();
-            } catch(Exception e) {
+            } catch(Exception expected) {
 
             }
 
             // Try clicking the 'x' on any displayed achievement, don't worry about exceptions
             try {
                 driver.findElement(CLOSE_CHEEVO).click();
-            } catch (Exception e) {
+            } catch (Exception expected) {
 
             }
 
