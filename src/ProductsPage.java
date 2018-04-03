@@ -1,4 +1,3 @@
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import org.openqa.selenium.By;
 
 public class ProductsPage extends BasePageObject {
@@ -8,16 +7,16 @@ public class ProductsPage extends BasePageObject {
     public void buyProduct() {
         try {
             this.elementFinder(AVAILABLE_PRODUCT).click();
-        } catch (ElementNotFoundException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+
         }
     }
 
     public void buyFromStore() {
         try {
             this.elementFinder(STORE_PRODUCT).click();
-        } catch (ElementNotFoundException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+
         }
     }
 }

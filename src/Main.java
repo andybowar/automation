@@ -1,5 +1,3 @@
-import org.openqa.selenium.NoSuchElementException;
-
 public class Main extends BasePageObject {
     public static void main(String[] args) {
 

@@ -1,4 +1,3 @@
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import org.openqa.selenium.By;
 
 public class AchievementPage extends BasePageObject {
@@ -11,10 +10,9 @@ public class AchievementPage extends BasePageObject {
     }
 
     public void closeCheevos() {
-        this.waitForElements(CLOSE_CHEEVO, 20);
         try {
             this.elementFinder(CLOSE_CHEEVO).click();
-        } catch (ElementNotFoundException expected) {
+        } catch (Exception expected) {
 
         }
     }
